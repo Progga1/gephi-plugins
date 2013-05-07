@@ -8,12 +8,11 @@ import org.gephi.statistics.spi.Statistics;
 import org.gephi.statistics.spi.StatisticsBuilder;
 import org.openide.util.lookup.ServiceProvider;
 
-@ServiceProvider (service=StatisticsBuilder.class)
-public class GraphanaMetric implements StatisticsBuilder{
+public class GraphanaStatisticsBuilder implements StatisticsBuilder{
 
     private GraphanaStatistics statistics;
     
-    public GraphanaMetric() {
+    public GraphanaStatisticsBuilder() {
         this.statistics = new GraphanaStatistics();
     }
     

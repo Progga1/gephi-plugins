@@ -17,7 +17,6 @@ import system.GraphanaInitializer;
 import view.VisualizingUserInterface;
 import view.callassistant.ArgumentsPanel;
 
-@ServiceProvider(service = StatisticsUI.class)
  public class GraphanaStatisticsUI implements StatisticsUI{
 
     private GraphanaStatistics graphanaAlgo;
