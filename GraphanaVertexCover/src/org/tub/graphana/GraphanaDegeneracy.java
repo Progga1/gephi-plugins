@@ -11,22 +11,22 @@ import org.tub.akt.graphanaexecuter.GraphanaStatistics;
 import org.tub.akt.graphanaexecuter.GraphanaStatisticsBuilder;
 
 @ServiceProvider (service=StatisticsBuilder.class)
-public class GraphanaVertexCover extends GraphanaStatisticsBuilder {
+public class GraphanaDegeneracy extends GraphanaStatisticsBuilder {
     
 
-    public GraphanaVertexCover() {
-        statistics = new VertexCoverStatistics();
+    public GraphanaDegeneracy() {
+        statistics = new DegeneracyStatistics();
     }
     
     @Override
     public String getName() {
-        return "Vertex Cover";
+        return "Degeneracy";
     }
 
     @Override
     public Class<? extends Statistics> getStatisticsClass() {
         //return VertexCoverStatistics.class;
-        return VertexCoverStatistics.class;
+        return DegeneracyStatistics.class;
     }
     
 }

@@ -9,6 +9,7 @@ import graphana.script.bindings.GraphanaScriptSystem;
 import javax.swing.JPanel;
 import operations.graphoperations.algorithms.AlgosMiscellaneous;
 import org.gephi.statistics.spi.Statistics;
+import org.gephi.statistics.spi.StatisticsBuilder;
 import org.gephi.statistics.spi.StatisticsUI;
 import org.openide.util.lookup.ServiceProvider;
 import scriptinterface.execution.returnvalues.ExecutionReturn;
@@ -17,6 +18,7 @@ import system.GraphanaInitializer;
 import view.VisualizingUserInterface;
 import view.callassistant.ArgumentsPanel;
 
+//@ServiceProvider (service=StatisticsUI.class)
  public class GraphanaStatisticsUI implements StatisticsUI{
 
     private GraphanaStatistics graphanaAlgo;

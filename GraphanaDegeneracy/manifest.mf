@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.tub.akt.degeneracy
+OpenIDE-Module-Localizing-Bundle: org/tub/akt/degeneracy/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
