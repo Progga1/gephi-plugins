@@ -28,8 +28,8 @@ public class GraphanaStatisticsBuilder implements StatisticsBuilder{
     }
 
     @Override
-    public Class<? extends Statistics> getStatisticsClass() {
-        return GraphanaStatistics.class;
+    public Class<? extends Statistics> getStatisticsClass() {System.out.println("claaaaaass: "+statistics.getClass());
+        return statistics.getClass();
     }
     
 }

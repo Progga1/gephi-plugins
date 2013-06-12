@@ -22,11 +22,5 @@ public class GraphanaDegeneracy extends GraphanaStatisticsBuilder {
     public String getName() {
         return "Degeneracy";
     }
-
-    @Override
-    public Class<? extends Statistics> getStatisticsClass() {
-        //return VertexCoverStatistics.class;
-        return DegeneracyStatistics.class;
-    }
     
 }

@@ -15,10 +15,10 @@ import org.tub.akt.graphanaexecuter.GraphanaStatisticsUI;
 public class GraphanaVertexCoverUni {
     
     @ServiceProvider (service=StatisticsBuilder.class)
-    public static class GraphanaVertexCover extends GraphanaStatisticsBuilder {
+    public static class OpStatisticsBuilder extends GraphanaStatisticsBuilder {
 
-        public GraphanaVertexCover() {
-            statistics = new VertexCoverStatistics();
+        public OpStatisticsBuilder() {
+            statistics = new OpStatistics();
         }
 
         @Override
@@ -26,28 +26,22 @@ public class GraphanaVertexCoverUni {
             return "Vertex Cover";
         }
 
-        @Override
-        public Class<? extends Statistics> getStatisticsClass() {
-            //return VertexCoverStatistics.class;
-            return VertexCoverStatistics.class;
-        }
-
     }
     
     @ServiceProvider(service = StatisticsUI.class)
-    public static class VertexCoverUI extends GraphanaStatisticsUI {
+    public static class OpUserInterface extends GraphanaStatisticsUI {
 
-        public VertexCoverUI() {
+        public OpUserInterface() {
             super("vertexCover");
         }
 
         @Override
         public Class<? extends Statistics> getStatisticsClass() {
-            return VertexCoverStatistics.class;
+            return OpStatistics.class;
         }
     }
     
-    public static class VertexCoverStatistics extends GraphanaStatistics {
+    public static class OpStatistics extends GraphanaStatistics {
     
     }
     
