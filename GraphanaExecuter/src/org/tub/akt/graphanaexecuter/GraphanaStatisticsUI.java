@@ -32,7 +32,6 @@ import view.callassistant.ArgumentsPanel;
     
     public GraphanaStatisticsUI(GraphanaStatistics statistics) {
         graphanaStcs = statistics;
-        statistics.getOperation();
         graphOperation = graphanaStcs.getGraphOperation();
         this.key = graphOperation.getSignature().getMainKey();
         this.displayName = graphanaStcs.getName();
@@ -57,7 +56,7 @@ import view.callassistant.ArgumentsPanel;
 
     @Override
     public void unsetup() {
-        graphanaStcs = null;
+
     }
 
     @Override
@@ -90,6 +89,11 @@ import view.callassistant.ArgumentsPanel;
     @Override
     public int getPosition() {
         return 0;
+    }
+    
+    @Override
+    public Class<? extends Statistics> getStatisticsClass() {
+        return graphanaStcs.getClass();
     }
     
 }

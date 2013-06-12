@@ -14,34 +14,28 @@ import org.tub.akt.graphanaexecuter.GraphanaStatisticsUI;
 
 public class GraphanaDegeneracy {
     
+    public static class OpStatistics extends GraphanaStatistics {
+        @Override
+        protected String getOperationKey() {
+            return "degeneracy";
+        }
+    }
+    
+    private static OpStatistics opStatistics = new OpStatistics();
+    
     @ServiceProvider (service=StatisticsBuilder.class)
     public static class OpStatisticsBuilder extends GraphanaStatisticsBuilder {
-
         public OpStatisticsBuilder() {
-            super(new OpStatistics());
+            super(opStatistics);
         }
     }
     
     @ServiceProvider(service = StatisticsUI.class)
     public static class OpUserInterface extends GraphanaStatisticsUI {
-
         public OpUserInterface() {
-            super(new OpStatistics());
+            super(opStatistics);
         }
-        
-        @Override
-        public Class<? extends Statistics> getStatisticsClass() {
-            return OpStatistics.class;
-        }
-    }
-    
-    public static class OpStatistics extends GraphanaStatistics {
-    
-        @Override
-        protected String getOperationKey() {
-            return "degeneracy";
-        }
-        
+
     }
     
 }
