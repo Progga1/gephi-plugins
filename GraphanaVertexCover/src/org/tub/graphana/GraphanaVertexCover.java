@@ -12,7 +12,7 @@ import org.tub.akt.graphanaexecuter.GraphanaStatistics;
 import org.tub.akt.graphanaexecuter.GraphanaStatisticsBuilder;
 import org.tub.akt.graphanaexecuter.GraphanaStatisticsUI;
 
-public class GraphanaVertexCoverUni {
+public class GraphanaVertexCover {
     
     @ServiceProvider (service=StatisticsBuilder.class)
     public static class OpStatisticsBuilder extends GraphanaStatisticsBuilder {
