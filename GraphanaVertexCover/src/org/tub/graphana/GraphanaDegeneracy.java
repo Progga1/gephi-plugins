@@ -10,17 +10,11 @@ import org.openide.util.lookup.ServiceProvider;
 import org.tub.akt.graphanaexecuter.GraphanaStatistics;
 import org.tub.akt.graphanaexecuter.GraphanaStatisticsBuilder;
 
-@ServiceProvider (service=StatisticsBuilder.class)
+//@ServiceProvider (service=StatisticsBuilder.class)
 public class GraphanaDegeneracy extends GraphanaStatisticsBuilder {
     
-
     public GraphanaDegeneracy() {
-        statistics = new DegeneracyStatistics();
-    }
-    
-    @Override
-    public String getName() {
-        return "Degeneracy";
+        super(new DegeneracyStatistics());
     }
     
 }

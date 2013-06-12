@@ -8,5 +8,9 @@ import org.tub.akt.graphanaexecuter.GraphanaStatistics;
 
 
 public class DegeneracyStatistics extends GraphanaStatistics{
-    
+        
+    @Override
+    protected String getOperationKey() {
+        return "vertexCover";
+    }
 }

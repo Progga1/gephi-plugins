@@ -12,30 +12,15 @@ import org.openide.util.lookup.ServiceProvider;
 import org.tub.akt.graphanaexecuter.GraphanaStatistics;
 import org.tub.akt.graphanaexecuter.GraphanaStatisticsUI;
 
-@ServiceProvider(service = StatisticsUI.class)
+//@ServiceProvider(service = StatisticsUI.class)
 public class DegeneracyUI extends GraphanaStatisticsUI {
     
     public DegeneracyUI() {
-        super("degeneracy");
-    }
-    
-    @Override
-    public String getDisplayName() {
-        return "Degeneracy";
-    }
-
-    @Override
-    public String getShortDescription() {
-        return "Graphana Degeneracy";
+        super(new DegeneracyStatistics());
     }
     
     @Override
     public Class<? extends Statistics> getStatisticsClass() {
-        return DegeneracyStatistics.class;
-        
-    }
-    
-    protected GraphOperation createGraphOperation() {
-        return new AlgosMiscellaneous().new AlgoDegeneracy();
+        return DegeneracyStatistics.class; 
     }
 }

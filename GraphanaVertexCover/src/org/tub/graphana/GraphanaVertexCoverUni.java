@@ -18,23 +18,17 @@ public class GraphanaVertexCoverUni {
     public static class OpStatisticsBuilder extends GraphanaStatisticsBuilder {
 
         public OpStatisticsBuilder() {
-            statistics = new OpStatistics();
+            super(new OpStatistics());
         }
-
-        @Override
-        public String getName() {
-            return "Vertex Cover";
-        }
-
     }
     
     @ServiceProvider(service = StatisticsUI.class)
     public static class OpUserInterface extends GraphanaStatisticsUI {
 
         public OpUserInterface() {
-            super("vertexCover");
+            super(new OpStatistics());
         }
-
+        
         @Override
         public Class<? extends Statistics> getStatisticsClass() {
             return OpStatistics.class;
@@ -43,6 +37,11 @@ public class GraphanaVertexCoverUni {
     
     public static class OpStatistics extends GraphanaStatistics {
     
+        @Override
+        protected String getOperationKey() {
+            return "vertexCover";
+        }
+        
     }
     
 }

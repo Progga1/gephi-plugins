@@ -13,13 +13,13 @@ public class GraphanaStatisticsBuilder implements StatisticsBuilder{
 
     protected GraphanaStatistics statistics;
     
-    public GraphanaStatisticsBuilder() {
-        this.statistics = new GraphanaStatistics();
+    public GraphanaStatisticsBuilder(GraphanaStatistics statistics) {
+        this.statistics = statistics;
     }
     
     @Override
     public String getName() {
-        return "Graphana algorithm";
+        return statistics.getName();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class GraphanaStatisticsBuilder implements StatisticsBuilder{
     }
 
     @Override
-    public Class<? extends Statistics> getStatisticsClass() {System.out.println("claaaaaass: "+statistics.getClass());
+    public Class<? extends Statistics> getStatisticsClass() {
         return statistics.getClass();
     }
     

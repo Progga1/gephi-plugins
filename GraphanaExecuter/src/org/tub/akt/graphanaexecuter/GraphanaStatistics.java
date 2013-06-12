@@ -26,18 +26,37 @@ import org.gephi.statistics.spi.Statistics;
 import scriptinterface.defaulttypes.GInteger;
 import scriptinterface.execution.returnvalues.ExecutionReturn;
 import system.GraphanaAccess;
+import system.GraphanaInitializer;
 import view.VisualizingUserInterface;
 import view.callassistant.ArgumentsPanel;
 
-public class GraphanaStatistics implements Statistics{
+public abstract class GraphanaStatistics implements Statistics{
 
+    public static GraphanaAccess graphanaAccess;
+    public static VisualizingUserInterface userInterface;
+    
     private ExecutionReturn result;
     private GraphOperation graphOperation;
     private ArgumentsPanel argPanel;
     
+    protected GraphanaStatistics() {
+        if(graphanaAccess==null) {
+            userInterface = new GraphanaGephiUI();
+            graphanaAccess = new GraphanaAccess(userInterface);
+            GraphanaInitializer.registerDefaultArgumentComponents(userInterface);
+        }
+        graphOperation = getOperation();
+    }
+    
+    protected abstract String getOperationKey();
+    
+    protected GraphOperation getOperation() {
+        return this.graphOperation = (GraphOperation)graphanaAccess.getMainControl().getOperationSet().getOperation(getOperationKey());
+        //return new AlgosMiscellaneous().new AlgoGetGreedyVertexCover();
+    }
+    
     @Override
     public void execute(GraphModel graphModel, AttributeModel attributeModel) {
-        GraphanaAccess graphanaAccess = GraphanaStatisticsUI.graphanaAccess;
         ExecutionManager mainControl = graphanaAccess.getMainControl();
         
         UndirectedGraph gephiGraph = graphModel.getUndirectedGraph();
@@ -53,8 +72,8 @@ public class GraphanaStatistics implements Statistics{
         }
        
         ExecutionReturn[] arguments = new ExecutionReturn[0];
-        if(argPanel!=null)
-            arguments = argPanel.getEvaluatedArguments().toArray(arguments);
+        //if(argPanel!=null)
+        //    arguments = argPanel.getEvaluatedArguments().toArray(arguments);//System.out.println("PAANEEEL: "+arguments[0]);
         result = graphOperation.execute(jungGraph, mainControl, arguments, null, graphOperation.getMainKey());
     }
     
@@ -67,8 +86,18 @@ public class GraphanaStatistics implements Statistics{
         return result;
     }
 
-    public void setup(GraphOperation graphOperation,ArgumentsPanel argPanel) {
-        this.graphOperation = graphOperation;
+    public void setup(ArgumentsPanel argPanel) {
+        this.argPanel = argPanel;
+        
+        this.graphOperation.initialize(graphanaAccess.getMainControl().getScriptSystem());
+    }
+    
+    public String getName() {
+        return graphOperation.getSignature().getMainKey();
+    }
+    
+    public GraphOperation getGraphOperation() {
+        return graphOperation;
     }
 
 }
