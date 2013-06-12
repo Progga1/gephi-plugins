@@ -15,6 +15,10 @@ import org.tub.akt.graphanaexecuter.GraphanaStatisticsUI;
 @ServiceProvider(service = StatisticsUI.class)
 public class DegeneracyUI extends GraphanaStatisticsUI {
     
+    public DegeneracyUI() {
+        super("degeneracy");
+    }
+    
     @Override
     public String getDisplayName() {
         return "Degeneracy";
@@ -28,6 +32,7 @@ public class DegeneracyUI extends GraphanaStatisticsUI {
     @Override
     public Class<? extends Statistics> getStatisticsClass() {
         return DegeneracyStatistics.class;
+        
     }
     
     protected GraphOperation createGraphOperation() {

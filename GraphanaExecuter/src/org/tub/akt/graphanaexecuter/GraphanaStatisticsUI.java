@@ -21,20 +21,27 @@ import view.callassistant.ArgumentsPanel;
 //@ServiceProvider (service=StatisticsUI.class)
  public class GraphanaStatisticsUI implements StatisticsUI{
 
-    private GraphanaStatistics graphanaAlgo;
+    private String name;
+    private String shortDescription;
+    private String displayName;
+    private String key;
+    private GraphanaStatistics graphanaStcs;
     private VisualizingUserInterface userInterface;
     
     protected static GraphanaAccess graphanaAccess;
     private GraphOperation graphOperation;
     private ArgumentsPanel argPanel = null;
     
-    public GraphanaStatisticsUI() {
+    public GraphanaStatisticsUI(String key,String displayName) {
+        this.key = key;
+        this.displayName = displayName;
         if(graphanaAccess==null) {
             userInterface = new GraphanaGephiUI();
             graphanaAccess = new GraphanaAccess(userInterface);
             GraphanaInitializer.registerDefaultArgumentComponents(userInterface);
         }
-        this.graphOperation = createGraphOperation();
+       // this.graphOperation = createGraphOperation();
+        this.graphOperation = (GraphOperation)graphanaAccess.getMainControl().getOperationSet().getOperation(key);
         this.graphOperation.initialize(graphanaAccess.getMainControl().getScriptSystem());
         if(graphOperation.getParameters().getParamCount(false)>0) {
             argPanel = new ArgumentsPanel();
@@ -43,11 +50,15 @@ import view.callassistant.ArgumentsPanel;
             argPanel = null;
     }
     
+    public GraphanaStatisticsUI(String key) {
+        this(key,key);
+    }
+    
     protected GraphOperation createGraphOperation() {
         return new AlgosMiscellaneous().new AlgoGetGreedyVertexCover();
     }
     
-    public GraphOperation getGraphOperation() {
+    public final GraphOperation getGraphOperation() {
         return graphOperation;
     }
     
@@ -58,13 +69,13 @@ import view.callassistant.ArgumentsPanel;
 
     @Override
     public void setup(Statistics ststcs) {
-        graphanaAlgo = (GraphanaStatistics)ststcs;
-        graphanaAlgo.setup(graphOperation, argPanel);
+        graphanaStcs = (GraphanaStatistics)ststcs;
+        graphanaStcs.setup(graphOperation, argPanel);
     }
 
     @Override
     public void unsetup() {
-        graphanaAlgo = null;
+        graphanaStcs = null;
     }
 
     @Override
@@ -74,7 +85,7 @@ import view.callassistant.ArgumentsPanel;
 
     @Override
     public String getValue() {
-        ExecutionReturn result = graphanaAlgo.getResult();
+        ExecutionReturn result = graphanaStcs.getResult();
         if(result==null)
             return "";
         String res = result.getStringRepresentation();
@@ -86,12 +97,12 @@ import view.callassistant.ArgumentsPanel;
 
     @Override
     public String getDisplayName() {
-        return "Graphana algorithm";
+        return displayName;
     }
 
     @Override
     public String getShortDescription() {
-        return "Graphana algorithm";
+        return "Graphana "+displayName;
     }
 
     @Override
