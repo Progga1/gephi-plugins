@@ -37,7 +37,7 @@ import view.callassistant.ArgumentsPanel;
         this.displayName = graphanaStcs.getName();
 
         if(graphOperation.getParameters().getParamCount(false)>0) {
-            argPanel = new ArgumentsPanel();System.out.println("AAAAAAAAAA "+graphOperation);System.out.println("DDDDDDDDDDDDDDDD "+graphOperation.getSignature().getMainKey());
+            argPanel = new ArgumentsPanel();
             argPanel.init(graphOperation.getSignature(), ((VisualizingUserInterface)GraphanaStatistics.graphanaAccess.getUserInterface()).getArgumentComponentManager());
         }else
             argPanel = null;

@@ -5,25 +5,14 @@
 package org.tub.akt.graphanaexecuter;
 
 import graphana.ExecutionManager;
-import graphana.UserInterface;
 import graphana.operationsystem.GraphOperation;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import libraries.jung.JungLib;
-import operations.graphoperations.algorithms.AlgosGraphStdProperties;
-import operations.graphoperations.algorithms.AlgosMiscellaneous;
-import org.gephi.data.attributes.api.AttributeColumn;
 import org.gephi.data.attributes.api.AttributeModel;
-import org.gephi.data.attributes.api.AttributeOrigin;
-import org.gephi.data.attributes.api.AttributeRow;
-import org.gephi.data.attributes.api.AttributeTable;
-import org.gephi.data.attributes.api.AttributeType;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
 import org.gephi.graph.api.UndirectedGraph;
 import org.gephi.statistics.spi.Statistics;
-import scriptinterface.defaulttypes.GInteger;
 import scriptinterface.execution.returnvalues.ExecutionReturn;
 import system.GraphanaAccess;
 import system.GraphanaInitializer;

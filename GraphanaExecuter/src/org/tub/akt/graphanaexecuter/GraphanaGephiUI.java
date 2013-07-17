@@ -4,14 +4,11 @@
  */
 package org.tub.akt.graphanaexecuter;
 
-import graphana.UserInterface;
-import graphana.graphs.GraphLibrary;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import view.VisualizingUserInterface;
 import visualizations.stdlayout.ArrangeException;
-
 /**
  *
  * @author Progga
