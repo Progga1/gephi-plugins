@@ -229,6 +229,8 @@ public class GephiLib extends GraphLibrary<Node, Edge>{
         edgeStates = initArrayList(graph.getEdgeCount());
         edgeData = initArrayList(graph.getEdgeCount());
         
+        graphCreated = true;
+        
 //        Node first = null;
 //        for(Node node:undirGraph.getNodes()) {
 //           first = node;
