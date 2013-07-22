@@ -7,6 +7,7 @@ package org.tub.akt.graphanaexecuter.gephibinding;
 import graphana.graphs.GraphLibrary;
 import graphana.graphs.exceptions.InvalidGraphConfigException;
 import graphana.model.GraphConfiguration;
+import java.util.ArrayList;
 import org.gephi.graph.api.*;
 
 /**
@@ -22,6 +23,8 @@ public class GephiLib extends GraphLibrary<Node, Edge>{
     private Graph graph;
     private DirectedGraph dirGraph;
     private UndirectedGraph undirGraph;
+    
+    private ArrayList<Object> vertexStates,edgeStates,vertexData,edgeData;
 
     @Override
     protected void derivCreateGraph(boolean directed, boolean weighted, boolean forceSimple) throws InvalidGraphConfigException {
@@ -157,42 +160,58 @@ public class GephiLib extends GraphLibrary<Node, Edge>{
 
     @Override
     public Object getVertexStatus(Node vertex) {
-        return vertex.getNodeData().getAttributes().getValue(STATUS_ID);
+        //return vertex.getNodeData().getAttributes().getValue(STATUS_ID);
+        return vertexStates.get(vertex.getId());
     }
 
     @Override
     public void setVertexStatus(Node vertex, Object status) {
-        vertex.getNodeData().getAttributes().setValue(STATUS_ID, status);
+        //vertex.getNodeData().getAttributes().setValue(STATUS_ID, status);
+        vertexStates.set(vertex.getId(), status);
     }
 
     @Override
     public Object getEdgeStatus(Edge edge) {
-        return edge.getEdgeData().getAttributes().getValue(STATUS_ID);
+       // return edge.getEdgeData().getAttributes().getValue(STATUS_ID);
+        return edgeStates.get(edge.getId());
     }
 
     @Override
     public void setEdgeStatus(Edge edge, Object status) {
-        edge.getEdgeData().getAttributes().setValue(STATUS_ID, status);
+        //edge.getEdgeData().getAttributes().setValue(STATUS_ID, status);
+        edgeStates.set(edge.getId(), status);
     }
 
     @Override
     public Object getVertexData(Node vertex) {
-        return vertex.getNodeData().getAttributes().getValue(DATA_ID);
+        //return vertex.getNodeData().getAttributes().getValue(DATA_ID);
+        return vertexData.get(vertex.getId());
     }
 
     @Override
     public void setVertexData(Node vertex, Object data) {
-        vertex.getNodeData().getAttributes().setValue(DATA_ID, data);
+        //vertex.getNodeData().getAttributes().setValue(DATA_ID, data);
+        vertexData.set(vertex.getId(), data);
     }
 
     @Override
     public Object getEdgeData(Edge edge) {
-        return edge.getEdgeData().getAttributes().getValue(DATA_ID);
+        //return edge.getEdgeData().getAttributes().getValue(DATA_ID);
+        return edgeData.get(edge.getId());
     }
 
     @Override
     public void setEdgeData(Edge edge, Object data) {
-        edge.getEdgeData().getAttributes().setValue(DATA_ID, data);
+        //edge.getEdgeData().getAttributes().setValue(DATA_ID, data);
+        edgeData.set(edge.getId(), data);
+    }
+    
+    private ArrayList<Object> initArrayList(int count) {
+        count++;
+        ArrayList<Object> result = new ArrayList<Object>(count);
+        for(int i=0;i<count;i++)
+            result.add(null);
+        return result;
     }
 
     public void createFromExistingGraph(GraphModel graphModel) {
@@ -204,5 +223,18 @@ public class GephiLib extends GraphLibrary<Node, Edge>{
         else
             this.undirGraph = (UndirectedGraph)graph;
         weighted = true;
+
+        vertexStates = initArrayList(graph.getNodeCount());
+        vertexData = initArrayList(graph.getNodeCount());
+        edgeStates = initArrayList(graph.getEdgeCount());
+        edgeData = initArrayList(graph.getEdgeCount());
+        
+//        Node first = null;
+//        for(Node node:undirGraph.getNodes()) {
+//           first = node;
+//           break;
+//        }System.out.println("FFFFFFFFFFFFFFFFFFF "+first);
+//        this.setVertexData(first, new StatusTest());
+//        System.out.println("CLAAAAAAAAAAAAAAAAAAAAAAAAAAASS "+this.getVertexData(first).getClass());
     }
 }

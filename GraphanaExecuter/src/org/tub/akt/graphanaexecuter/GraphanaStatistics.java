@@ -4,7 +4,9 @@
  */
 package org.tub.akt.graphanaexecuter;
 
+import global.Debug;
 import graphana.ExecutionManager;
+import graphana.graphs.GraphLibrary;
 import graphana.operationsystem.GraphOperation;
 import libraries.jung.JungLib;
 import org.gephi.data.attributes.api.AttributeModel;
@@ -13,6 +15,7 @@ import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
 import org.gephi.graph.api.UndirectedGraph;
 import org.gephi.statistics.spi.Statistics;
+import org.tub.akt.graphanaexecuter.gephibinding.GephiLib;
 import scriptinterface.execution.returnvalues.ExecutionReturn;
 import system.GraphanaAccess;
 import system.GraphanaInitializer;
@@ -48,22 +51,30 @@ public abstract class GraphanaStatistics implements Statistics{
     public void execute(GraphModel graphModel, AttributeModel attributeModel) {
         ExecutionManager mainControl = graphanaAccess.getMainControl();
         
-        UndirectedGraph gephiGraph = graphModel.getUndirectedGraph();
+        GraphLibrary<?,?> graphLib;
+        if(false) {
+            UndirectedGraph gephiGraph = graphModel.getUndirectedGraph();
+            JungLib jungGraph = new JungLib();
+            jungGraph.createGraph(false, false, false);
+            for(Node node:gephiGraph.getNodes()) {
+                jungGraph.addVertex(""+node.getId());
+            }
 
-        JungLib jungGraph = new JungLib();
-        jungGraph.createGraph(false, false, false);
-        for(Node node:gephiGraph.getNodes()) {
-            jungGraph.addVertex(""+node.getId());
+            for(Edge edge:gephiGraph.getEdges()) {
+                jungGraph.addEdge(jungGraph.getVertexByIdent(""+edge.getSource().getId()), jungGraph.getVertexByIdent(""+edge.getTarget().getId()));
+            }
+            graphLib = jungGraph;
+        }else{
+            GephiLib gephiLib = new GephiLib();
+            gephiLib.createFromExistingGraph(graphModel);
+            graphLib = gephiLib;
         }
-        
-        for(Edge edge:gephiGraph.getEdges()) {
-            jungGraph.addEdge(jungGraph.getVertexByIdent(""+edge.getSource().getId()), jungGraph.getVertexByIdent(""+edge.getTarget().getId()));
-        }
-       
+       Debug.printExceptionStackTraces = true;
         ExecutionReturn[] arguments = new ExecutionReturn[0];
         //if(argPanel!=null)
         //    arguments = argPanel.getEvaluatedArguments().toArray(arguments);//System.out.println("PAANEEEL: "+arguments[0]);
-        result = graphOperation.execute(jungGraph, mainControl, arguments, null, graphOperation.getMainKey());
+        result = graphOperation.execute(graphLib, mainControl, arguments, null, graphOperation.getMainKey());
+        
     }
     
     @Override
